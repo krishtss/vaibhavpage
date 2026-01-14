@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>UIDAI</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        button {
+            padding: 12px 30px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+
+    <script>
+        function openApp() {
+            const url =
+                "intent:#Intent;" +
+                "action=in.gov.uidai.pehchaan.WEB_INTENT_REQUEST;" +
+                "S.request=<SIGNED_REQUEST_JWT>;" +
+                "end";
+
+            try {
+                window.location.replace(url);
+            } catch (err) {
+                console.log(err);
+            }
+        }
+
+        // Call function immediately when page loads
+        window.onload = function () {
+            openApp();
+        };
+    </script>
+</head>
+<body>
+
+    <h1>UIDAI</h1>
+    <button onclick="openApp()">Open UIDAI App</button>
+
+</body>
+</html>
