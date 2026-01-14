@@ -37,10 +37,16 @@
 
     <script>
         function openApp() {
+            const params = new URLSearchParams(window.location.search);
+            const sessionId = params.get("sessionid");  
+            if(!sessionId){
+                console.error("session id not found",window.location.search)
+                return;
+            }
             const url =
                 "intent:#Intent;" +
                 "action=in.gov.uidai.pehchaan.WEB_INTENT_REQUEST;" +
-                "S.request=<SIGNED_REQUEST_JWT>;" +
+                "S.request=" + sessionId +";"
                 "end";
 
             try {
@@ -50,7 +56,6 @@
             }
         }
 
-        // Call function immediately when page loads
         window.onload = function () {
             openApp();
         };
@@ -63,4 +68,5 @@
 
 </body>
 </html>
+
 
