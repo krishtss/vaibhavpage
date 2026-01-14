@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>UIDAI</title>
+
     <style>
         body {
             margin: 0;
@@ -33,40 +34,55 @@
         button:hover {
             background-color: #0056b3;
         }
+
+        .error {
+            margin-top: 15px;
+            color: red;
+            font-size: 14px;
+        }
     </style>
 
     <script>
         function openApp() {
+            // Debug: show full query string
+            console.log("Query string:", window.location.search);
+
             const params = new URLSearchParams(window.location.search);
-            const sessionId = params.get("sessionid");  
-            if(!sessionId){
-                console.error("session id not found",window.location.search)
+            const sessionId = params.get("sessionid");
+
+            console.log("Session ID:", sessionId);
+
+            if (!sessionId) {
+                document.getElementById("error").innerText =
+                    "Session ID not found in URL";
                 return;
             }
+
             const url =
                 "intent:#Intent;" +
                 "action=in.gov.uidai.pehchaan.WEB_INTENT_REQUEST;" +
-                "S.request=" + sessionId +";"
+                "S.request=" + encodeURIComponent(sessionId) + ";" +
                 "end";
 
             try {
                 window.location.replace(url);
             } catch (err) {
-                console.log(err);
+                console.error("Intent launch failed:", err);
             }
         }
 
-        window.onload = function () {
-            openApp();
-        };
+        // Auto-run on page load
+        window.onload = openApp;
     </script>
 </head>
+
 <body>
 
     <h1>UIDAI</h1>
+
     <button onclick="openApp()">Open UIDAI App</button>
+
+    <div id="error" class="error"></div>
 
 </body>
 </html>
-
-
